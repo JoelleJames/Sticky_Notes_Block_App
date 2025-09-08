@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sticky_Notes_Block_App", "Sticky_Notes_Block_App\Sticky_Notes_Block_App.csproj", "{2DE646BE-08A8-458C-8750-5EE393060F94}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DE646BE-08A8-458C-8750-5EE393060F94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DE646BE-08A8-458C-8750-5EE393060F94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DE646BE-08A8-458C-8750-5EE393060F94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DE646BE-08A8-458C-8750-5EE393060F94}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FCACADB1-A5D0-4C16-A77B-1580543080C1}
+	EndGlobalSection
+EndGlobal
