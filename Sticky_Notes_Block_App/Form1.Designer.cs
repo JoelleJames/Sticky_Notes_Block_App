@@ -40,6 +40,7 @@ namespace Sticky_Notes_Block_App
             // 
             // Close_Button
             // 
+            Close_Button.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Close_Button.FlatAppearance.BorderSize = 0;
             Close_Button.FlatStyle = FlatStyle.Flat;
             Close_Button.Location = new Point(749, 12);
@@ -52,6 +53,7 @@ namespace Sticky_Notes_Block_App
             // 
             // Minimize_Button
             // 
+            Minimize_Button.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Minimize_Button.FlatStyle = FlatStyle.Flat;
             Minimize_Button.Location = new Point(691, 12);
             Minimize_Button.Name = "Minimize_Button";
@@ -59,9 +61,11 @@ namespace Sticky_Notes_Block_App
             Minimize_Button.TabIndex = 1;
             Minimize_Button.Text = "-";
             Minimize_Button.UseVisualStyleBackColor = true;
+            Minimize_Button.Click += Minimize_Button_Click;
             // 
             // History_Button
             // 
+            History_Button.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             History_Button.FlatStyle = FlatStyle.Flat;
             History_Button.Location = new Point(577, 15);
             History_Button.Name = "History_Button";
@@ -82,6 +86,7 @@ namespace Sticky_Notes_Block_App
             // 
             // Auto_Resize_Button
             // 
+            Auto_Resize_Button.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             Auto_Resize_Button.FlatStyle = FlatStyle.Flat;
             Auto_Resize_Button.Location = new Point(726, 399);
             Auto_Resize_Button.Name = "Auto_Resize_Button";
@@ -92,6 +97,7 @@ namespace Sticky_Notes_Block_App
             // 
             // Insert_Text_Button
             // 
+            Insert_Text_Button.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             Insert_Text_Button.FlatStyle = FlatStyle.Flat;
             Insert_Text_Button.Location = new Point(12, 392);
             Insert_Text_Button.Name = "Insert_Text_Button";
@@ -117,6 +123,8 @@ namespace Sticky_Notes_Block_App
             FormBorderStyle = FormBorderStyle.None;
             Name = "Sicky_Notes_Block";
             Text = "Block of Sticky Notes";
+            MouseEnter += Form_MouseEnter;
+            MouseLeave += Form_MouseLeave;
             ResumeLayout(false);
         }
 
@@ -128,5 +136,6 @@ namespace Sticky_Notes_Block_App
         private Button Settings_Button;
         private Button Auto_Resize_Button;
         private Button Insert_Text_Button;
+
     }
 }
