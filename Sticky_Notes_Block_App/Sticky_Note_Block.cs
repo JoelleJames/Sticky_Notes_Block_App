@@ -1,6 +1,7 @@
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using System.Windows.Forms;
+using Font = System.Drawing.Font;
 
 namespace Sticky_Notes_Block_App
 {
@@ -63,7 +64,7 @@ namespace Sticky_Notes_Block_App
         }
 
         private const int cGrip = 16;      // Grip size
-        private const int cCaption = 48;   // Caption bar height;
+        private const int cCaption = 64;   // Caption bar height. Also used for textbox size and location
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -109,5 +110,84 @@ namespace Sticky_Notes_Block_App
         {
             this.WindowState = FormWindowState.Minimized;
         }
+
+        private void Insert_Text_Button_Click(object sender, EventArgs e)
+        {
+            RichTextBox Created_RichTextBox = new RichTextBox();
+            Resize_RichTextBox(Created_RichTextBox);
+            this.Controls.Add(Created_RichTextBox);
+            Create_Text_Formatting_Tool_Strip();
+        }
+        private void Create_Text_Formatting_Tool_Strip()
+        {
+            //create instance of toolstrip
+            ToolStrip Text_Formatting_ToolStrip = new ToolStrip();
+
+            //create instances of toolstrip items
+            ToolStripMenuItem Bold_Button = new ToolStripMenuItem("B");
+            ToolStripMenuItem Italics_Button = new ToolStripMenuItem("I");
+            ToolStripMenuItem Underline_Button = new ToolStripMenuItem("U");
+            ToolStripMenuItem Strikethrough_Button = new ToolStripMenuItem("S");
+
+            //Format toolstrip items
+            Bold_Button.Font = new Font(Bold_Button.Font, FontStyle.Bold);
+            Italics_Button.Font = new Font(Italics_Button.Font, FontStyle.Italic);
+            Underline_Button.Font = new Font(Underline_Button.Font, FontStyle.Underline);
+            Strikethrough_Button.Font = new Font(Strikethrough_Button.Font, FontStyle.Strikeout);
+
+            //format toolstrip
+            Text_Formatting_ToolStrip.ImageScalingSize = new Size(32, 32);
+            Resize_Text_Formatting_ToolStrip(Text_Formatting_ToolStrip);
+
+            //add toolstrip items to toolstrip
+            Text_Formatting_ToolStrip.Items.AddRange(new ToolStripMenuItem[] { Bold_Button, Italics_Button, Underline_Button , Strikethrough_Button });
+
+            //events for clicking on toolstrip items
+            Bold_Button.Click += Bold_Button_Click;
+            Italics_Button.Click += Italics_Button_Click;
+            Underline_Button.Click += Underline_Button_Click;
+            Strikethrough_Button.Click += Strikethrough_Button_Click;
+
+            //add toolstrip to form
+            this.Controls.Add(Text_Formatting_ToolStrip);
+        }
+
+        private void Bold_Button_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        private void Italics_Button_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        private void Underline_Button_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        private void Strikethrough_Button_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Resize_RichTextBox(RichTextBox richTextBox)
+        {
+            //using top bar (cCaption) size to size and position the richtextbox
+            richTextBox.Location = new Point(cCaption, cCaption);
+            richTextBox.Height = this.ClientSize.Height - (cCaption * 2);
+            richTextBox.Width = this.ClientSize.Width - (cCaption * 2);
+            richTextBox.Anchor = AnchorStyles.Left | AnchorStyles.Right |
+                AnchorStyles.Bottom | AnchorStyles.Top;
+
+        }
+        private void Resize_Text_Formatting_ToolStrip(ToolStrip toolStrip)
+        {
+            //temporary values, may need changing at later date
+            toolStrip.Location = new Point(cCaption * 3, this.ClientSize.Height - 84);
+            toolStrip.Height = cCaption;
+            toolStrip.Width = cCaption * 3;
+            toolStrip.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+
+        }
+
     }
 }

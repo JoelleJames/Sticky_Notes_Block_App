@@ -105,6 +105,7 @@ namespace Sticky_Notes_Block_App
             Insert_Text_Button.TabIndex = 5;
             Insert_Text_Button.Text = "Insert Text";
             Insert_Text_Button.UseVisualStyleBackColor = true;
+            Insert_Text_Button.Click += Insert_Text_Button_Click;
             // 
             // Sicky_Notes_Block
             // 
