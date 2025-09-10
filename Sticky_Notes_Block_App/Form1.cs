@@ -81,6 +81,7 @@ namespace Sticky_Notes_Block_App
         {
             if (m.Msg == 0x84) // Trap WM_NCHITTEST message from Windows OS to find out where mouse is
             {
+                Show_All_Components();
                 Point pos = new Point(m.LParam.ToInt32()); //get screen coordinates
                 pos = this.PointToClient(pos); //convert screen coordinates to client coordinates
 
