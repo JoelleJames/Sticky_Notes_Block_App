@@ -63,7 +63,7 @@ namespace Sticky_Notes_Block_App
         }
 
         private const int cGrip = 16;      // Grip size
-        private const int cCaption = 48;   // Caption bar height;
+        private const int cCaption = 64;   // Caption bar height. Also used for textbox size and location
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -108,6 +108,21 @@ namespace Sticky_Notes_Block_App
         private void Minimize_Button_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void Insert_Text_Button_Click(object sender, EventArgs e)
+        {
+            RichTextBox Created_RichTextBox = new RichTextBox();
+            Resize_RichTextBox(Created_RichTextBox);
+            this.Controls.Add(Created_RichTextBox);
+        }
+        private void Resize_RichTextBox(RichTextBox richTextBox)
+        {
+            richTextBox.Location = new Point(cCaption, cCaption);
+            richTextBox.Height = this.ClientSize.Height - (cCaption * 2);
+            richTextBox.Width = this.ClientSize.Width - (cCaption * 2);
+            richTextBox.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top ;
+            
         }
     }
 }
