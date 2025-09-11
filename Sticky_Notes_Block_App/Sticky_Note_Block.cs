@@ -15,10 +15,25 @@ namespace Sticky_Notes_Block_App
             InitializeComponent();
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             Hide_All_Components(); // Hide comonents when opened
+            
+            //timer for 1 second delay to hide components when mouse not over form
             HideTimer = new System.Windows.Forms.Timer();
             HideTimer.Interval = 1000; // 1 second
             HideTimer.Tick += HideTimer_Tick;
 
+            //refresh to link controls to Form_MouseEnter and Form_MouseLeave events
+            Refresh_Form();
+        }
+        private void Refresh_Form()
+        {
+            foreach (Control ctrl in Controls)
+            {
+                ctrl.MouseLeave += Form_MouseLeave;
+            }
+            foreach (Control ctrl in Controls)
+            {
+                ctrl.MouseEnter += Form_MouseEnter;
+            }
         }
         private void Hide_All_Components() //temporary implementation, does not hide close button. Need to edit wording in future
         {
@@ -50,17 +65,21 @@ namespace Sticky_Notes_Block_App
             }
         }
 
-        private void Form_MouseEnter(object sender, EventArgs e)
+        private void Form_MouseEnter(object? sender, EventArgs e)
         {
             mouseInsideForm = true;
             Show_All_Components(); // Show all components straight away
             HideTimer.Stop(); // Cancel hiding
         }
 
-        private void Form_MouseLeave(object sender, EventArgs e)
+        private void Form_MouseLeave(object? sender, EventArgs e)
         {
-            mouseInsideForm = false;
-            HideTimer.Start(); // Start 1-second countdown. Delaying the components hiding
+            //checking if the mouse is within the client area (not just on the form directly)
+            if (this.ClientRectangle.Contains(this.PointToClient(Control.MousePosition))) 
+                return;
+            else
+                mouseInsideForm = false;
+                HideTimer.Start(); // Start 1-second countdown. Delaying the components hiding
         }
 
         private const int cGrip = 16;      // Grip size
@@ -82,7 +101,6 @@ namespace Sticky_Notes_Block_App
         {
             if (m.Msg == 0x84) // Trap WM_NCHITTEST message from Windows OS to find out where mouse is
             {
-                Show_All_Components();
                 Point pos = new Point(m.LParam.ToInt32()); //get screen coordinates
                 pos = this.PointToClient(pos); //convert screen coordinates to client coordinates
 
@@ -115,8 +133,8 @@ namespace Sticky_Notes_Block_App
         {
             RichTextBox Created_RichTextBox = new RichTextBox();
             Resize_RichTextBox(Created_RichTextBox);
-            this.Controls.Add(Created_RichTextBox);
-            Create_Text_Formatting_Tool_Strip();
+            this.Controls.Add(Created_RichTextBox); //ensure all new ctrls lead to a call to Refresh_Form();
+            Create_Text_Formatting_Tool_Strip(); //Refresh_Form(); in here
         }
         private void Create_Text_Formatting_Tool_Strip()
         {
@@ -150,6 +168,9 @@ namespace Sticky_Notes_Block_App
 
             //add toolstrip to form
             this.Controls.Add(Text_Formatting_ToolStrip);
+
+            //refreshing form to link new controls to Form_MouseEnter and Form_MouseLeave events
+            Refresh_Form(); 
         }
 
         private void Bold_Button_Click(object? sender, EventArgs e)
