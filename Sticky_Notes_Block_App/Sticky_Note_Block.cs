@@ -2,11 +2,16 @@ using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using System.Windows.Forms;
 using Font = System.Drawing.Font;
+using Sticky_Notes_Block_App.Factories;
 
 namespace Sticky_Notes_Block_App
 {
     public partial class Sicky_Notes_Block : Form
     {
+        private readonly TextBox_Controls _textBox_Controls;
+        private RichTextBox _dynamicRichTextBox;
+        private ToolStrip _dynamicTextToolStrip;
+
         private System.Windows.Forms.Timer HideTimer;
         private bool mouseInsideForm = false;
 
@@ -23,6 +28,10 @@ namespace Sticky_Notes_Block_App
 
             //refresh to link controls to Form_MouseEnter and Form_MouseLeave events
             Refresh_Form();
+
+            _textBox_Controls = new TextBox_Controls(
+                Caption_Bar_Height: cCaption
+                );
         }
         private void Refresh_Form()
         {
@@ -83,7 +92,7 @@ namespace Sticky_Notes_Block_App
         }
 
         private const int cGrip = 16;      // Grip size
-        private const int cCaption = 64;   // Caption bar height. Also used for textbox size and location
+        private const int cCaption = 64;   // Caption bar height
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -131,48 +140,26 @@ namespace Sticky_Notes_Block_App
 
         private void Insert_Text_Button_Click(object sender, EventArgs e)
         {
-            RichTextBox Created_RichTextBox = new RichTextBox();
-            Resize_RichTextBox(Created_RichTextBox);
-            this.Controls.Add(Created_RichTextBox); //ensure all new ctrls lead to a call to Refresh_Form();
-            Create_Text_Formatting_Tool_Strip(); //Refresh_Form(); in here
+            _dynamicRichTextBox = _textBox_Controls.Create_RichTextBox(
+                this.ClientSize
+                );
+            this.Controls.Add(_dynamicRichTextBox);
+ 
+            _dynamicTextToolStrip = _textBox_Controls.Create_Text_Formatting_ToolStrip(
+                this.ClientSize
+                );
+
+             var Text_Formatting_Items = _textBox_Controls.Create_Text_Formatting_ToolStrip_Items(
+                _dynamicRichTextBox);
+
+            foreach(var item in Text_Formatting_Items)
+            {
+                _dynamicTextToolStrip.Items.Add(item);
+            }
+            this.Controls.Add(_dynamicTextToolStrip);
+            Refresh_Form();
         }
-        private void Create_Text_Formatting_Tool_Strip()
-        {
-            //create instance of toolstrip
-            ToolStrip Text_Formatting_ToolStrip = new ToolStrip();
-
-            //create instances of toolstrip items
-            ToolStripMenuItem Bold_Button = new ToolStripMenuItem("B");
-            ToolStripMenuItem Italics_Button = new ToolStripMenuItem("I");
-            ToolStripMenuItem Underline_Button = new ToolStripMenuItem("U");
-            ToolStripMenuItem Strikethrough_Button = new ToolStripMenuItem("S");
-
-            //Format toolstrip items
-            Bold_Button.Font = new Font(Bold_Button.Font, FontStyle.Bold);
-            Italics_Button.Font = new Font(Italics_Button.Font, FontStyle.Italic);
-            Underline_Button.Font = new Font(Underline_Button.Font, FontStyle.Underline);
-            Strikethrough_Button.Font = new Font(Strikethrough_Button.Font, FontStyle.Strikeout);
-
-            //format toolstrip
-            Text_Formatting_ToolStrip.ImageScalingSize = new Size(32, 32);
-            Resize_Text_Formatting_ToolStrip(Text_Formatting_ToolStrip);
-
-            //add toolstrip items to toolstrip
-            Text_Formatting_ToolStrip.Items.AddRange(new ToolStripMenuItem[] { Bold_Button, Italics_Button, Underline_Button , Strikethrough_Button });
-
-            //events for clicking on toolstrip items
-            Bold_Button.Click += Bold_Button_Click;
-            Italics_Button.Click += Italics_Button_Click;
-            Underline_Button.Click += Underline_Button_Click;
-            Strikethrough_Button.Click += Strikethrough_Button_Click;
-
-            //add toolstrip to form
-            this.Controls.Add(Text_Formatting_ToolStrip);
-
-            //refreshing form to link new controls to Form_MouseEnter and Form_MouseLeave events
-            Refresh_Form(); 
-        }
-
+     
         private void Bold_Button_Click(object? sender, EventArgs e)
         {
             throw new NotImplementedException();
@@ -188,26 +175,6 @@ namespace Sticky_Notes_Block_App
         private void Strikethrough_Button_Click(object? sender, EventArgs e)
         {
             throw new NotImplementedException();
-        }
-
-        private void Resize_RichTextBox(RichTextBox richTextBox)
-        {
-            //using top bar (cCaption) size to size and position the richtextbox
-            richTextBox.Location = new Point(cCaption, cCaption);
-            richTextBox.Height = this.ClientSize.Height - (cCaption * 2);
-            richTextBox.Width = this.ClientSize.Width - (cCaption * 2);
-            richTextBox.Anchor = AnchorStyles.Left | AnchorStyles.Right |
-                AnchorStyles.Bottom | AnchorStyles.Top;
-
-        }
-        private void Resize_Text_Formatting_ToolStrip(ToolStrip toolStrip)
-        {
-            //temporary values, may need changing at later date
-            toolStrip.Location = new Point(cCaption * 3, this.ClientSize.Height - 84);
-            toolStrip.Height = cCaption;
-            toolStrip.Width = cCaption * 3;
-            toolStrip.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
-
         }
 
     }
