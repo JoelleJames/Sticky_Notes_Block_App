@@ -34,7 +34,6 @@ namespace Sticky_Notes_Block_App
             Minimize_Button = new Button();
             History_Button = new Button();
             Settings_Button = new Button();
-            Auto_Resize_Button = new Button();
             Insert_Text_Button = new Button();
             SuspendLayout();
             // 
@@ -84,17 +83,6 @@ namespace Sticky_Notes_Block_App
             Settings_Button.Text = "Settings";
             Settings_Button.UseVisualStyleBackColor = true;
             // 
-            // Auto_Resize_Button
-            // 
-            Auto_Resize_Button.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            Auto_Resize_Button.FlatStyle = FlatStyle.Flat;
-            Auto_Resize_Button.Location = new Point(726, 399);
-            Auto_Resize_Button.Name = "Auto_Resize_Button";
-            Auto_Resize_Button.Size = new Size(65, 44);
-            Auto_Resize_Button.TabIndex = 4;
-            Auto_Resize_Button.Text = "fit";
-            Auto_Resize_Button.UseVisualStyleBackColor = true;
-            // 
             // Insert_Text_Button
             // 
             Insert_Text_Button.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -115,7 +103,6 @@ namespace Sticky_Notes_Block_App
             ClientSize = new Size(800, 450);
             ControlBox = false;
             Controls.Add(Insert_Text_Button);
-            Controls.Add(Auto_Resize_Button);
             Controls.Add(Settings_Button);
             Controls.Add(History_Button);
             Controls.Add(Minimize_Button);
@@ -135,7 +122,6 @@ namespace Sticky_Notes_Block_App
         private Button Minimize_Button;
         private Button History_Button;
         private Button Settings_Button;
-        private Button Auto_Resize_Button;
         private Button Insert_Text_Button;
 
     }
