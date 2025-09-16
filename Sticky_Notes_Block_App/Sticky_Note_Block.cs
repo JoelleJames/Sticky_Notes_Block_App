@@ -1,7 +1,3 @@
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
-using System.Windows.Forms;
-using Font = System.Drawing.Font;
 using Sticky_Notes_Block_App.Factories;
 
 namespace Sticky_Notes_Block_App
@@ -9,8 +5,8 @@ namespace Sticky_Notes_Block_App
     public partial class Sicky_Notes_Block : Form
     {
         private readonly TextBox_Controls _textBox_Controls;
-        private RichTextBox _dynamicRichTextBox;
-        private ToolStrip _dynamicTextToolStrip;
+        private RichTextBox ?_dynamicRichTextBox;
+        private ToolStrip ?_dynamicTextToolStrip;
 
         private System.Windows.Forms.Timer HideTimer;
         private bool mouseInsideForm = false;
@@ -37,10 +33,12 @@ namespace Sticky_Notes_Block_App
         {
             foreach (Control ctrl in Controls)
             {
+                ctrl.MouseLeave -= Form_MouseLeave;
                 ctrl.MouseLeave += Form_MouseLeave;
             }
             foreach (Control ctrl in Controls)
             {
+                ctrl.MouseEnter -= Form_MouseEnter;
                 ctrl.MouseEnter += Form_MouseEnter;
             }
         }
