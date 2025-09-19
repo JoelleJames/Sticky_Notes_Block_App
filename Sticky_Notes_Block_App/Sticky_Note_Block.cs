@@ -14,6 +14,7 @@ namespace Sticky_Notes_Block_App
         public Sicky_Notes_Block()
         {
             InitializeComponent();
+            Load_Form();
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             Hide_All_Components(); // Hide comonents when opened
             
@@ -28,6 +29,12 @@ namespace Sticky_Notes_Block_App
             _textBox_Controls = new TextBox_Controls(
                 Caption_Bar_Height: cCaption
                 );
+        }
+        private void Load_Form()
+        {
+            var bounds = Screen.PrimaryScreen.Bounds;
+            this.ClientSize = bounds.Size / 4;
+            MaximumSize = bounds.Size / 2;
         }
         private void Refresh_Form()
         {

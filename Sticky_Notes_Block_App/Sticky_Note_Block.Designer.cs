@@ -109,6 +109,7 @@ namespace Sticky_Notes_Block_App
             Controls.Add(Close_Button);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
+            MinimumSize = new Size(400, 400);
             Name = "Sicky_Notes_Block";
             Text = "Block of Sticky Notes";
             MouseEnter += Form_MouseEnter;
