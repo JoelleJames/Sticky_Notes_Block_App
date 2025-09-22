@@ -145,14 +145,10 @@ namespace Sticky_Notes_Block_App
 
         private void Insert_Text_Button_Click(object sender, EventArgs e)
         {
-            _dynamicRichTextBox = _textBox_Controls.Create_RichTextBox(
-                this.ClientSize
-                );
+            _dynamicRichTextBox = _textBox_Controls.Create_RichTextBox(this);
             this.Controls.Add(_dynamicRichTextBox);
 
-            _dynamicTextToolStrip = _textBox_Controls.Create_Text_Formatting_ToolStrip(
-                this.ClientSize
-                );
+            _dynamicTextToolStrip = _textBox_Controls.Create_Text_Formatting_ToolStrip(this);
 
             var Text_Formatting_Items = _textBox_Controls.Create_Text_Formatting_ToolStrip_Items(
                _dynamicRichTextBox);
