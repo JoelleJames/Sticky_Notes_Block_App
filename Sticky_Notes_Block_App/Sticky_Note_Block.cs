@@ -5,8 +5,8 @@ namespace Sticky_Notes_Block_App
     public partial class Sicky_Notes_Block : Form
     {
         private readonly TextBox_Controls _textBox_Controls;
-        private RichTextBox ?_dynamicRichTextBox;
-        private ToolStrip ?_dynamicTextToolStrip;
+        private RichTextBox? _dynamicRichTextBox;
+        private ToolStrip? _dynamicTextToolStrip;
 
         private System.Windows.Forms.Timer HideTimer;
         private bool mouseInsideForm = false;
@@ -17,7 +17,7 @@ namespace Sticky_Notes_Block_App
             Load_Form();
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             Hide_All_Components(); // Hide comonents when opened
-            
+
             //timer for 1 second delay to hide components when mouse not over form
             HideTimer = new System.Windows.Forms.Timer();
             HideTimer.Interval = 1000; // 1 second
@@ -89,11 +89,11 @@ namespace Sticky_Notes_Block_App
         private void Form_MouseLeave(object? sender, EventArgs e)
         {
             //checking if the mouse is within the client area (not just on the form directly)
-            if (this.ClientRectangle.Contains(this.PointToClient(Control.MousePosition))) 
+            if (this.ClientRectangle.Contains(this.PointToClient(Control.MousePosition)))
                 return;
             else
                 mouseInsideForm = false;
-                HideTimer.Start(); // Start 1-second countdown. Delaying the components hiding
+            HideTimer.Start(); // Start 1-second countdown. Delaying the components hiding
         }
 
         private const int cGrip = 16;      // Grip size
@@ -149,22 +149,23 @@ namespace Sticky_Notes_Block_App
                 this.ClientSize
                 );
             this.Controls.Add(_dynamicRichTextBox);
- 
+
             _dynamicTextToolStrip = _textBox_Controls.Create_Text_Formatting_ToolStrip(
                 this.ClientSize
                 );
 
-             var Text_Formatting_Items = _textBox_Controls.Create_Text_Formatting_ToolStrip_Items(
-                _dynamicRichTextBox);
+            var Text_Formatting_Items = _textBox_Controls.Create_Text_Formatting_ToolStrip_Items(
+               _dynamicRichTextBox);
 
-            foreach(var item in Text_Formatting_Items)
+            foreach (var item in Text_Formatting_Items)
             {
                 _dynamicTextToolStrip.Items.Add(item);
             }
             this.Controls.Add(_dynamicTextToolStrip);
+            textToolStripMenuItem.Visible = false; // hides option to add more text (textbox already exists)
             Refresh_Form();
         }
-     
+
         private void Bold_Button_Click(object? sender, EventArgs e)
         {
             throw new NotImplementedException();
@@ -182,5 +183,12 @@ namespace Sticky_Notes_Block_App
             throw new NotImplementedException();
         }
 
+        private void Insert_Button_Click(object sender, EventArgs e)
+        {
+            // force layout calculation (so Insert_Menu_Strip.Height !=0 before being seen for first time)
+            Size preferredSize = Insert_Menu_Strip.GetPreferredSize(Size.Empty); 
+
+            Insert_Menu_Strip.Show(Insert_Text_Button, new Point(Insert_Text_Button.Width, -preferredSize.Height));
+        }
     }
 }

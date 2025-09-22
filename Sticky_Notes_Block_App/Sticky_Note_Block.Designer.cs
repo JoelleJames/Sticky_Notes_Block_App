@@ -30,11 +30,18 @@ namespace Sticky_Notes_Block_App
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             Close_Button = new Button();
             Minimize_Button = new Button();
             History_Button = new Button();
             Settings_Button = new Button();
             Insert_Text_Button = new Button();
+            Insert_Menu_Strip = new ContextMenuStrip(components);
+            imageToolStripMenuItem = new ToolStripMenuItem();
+            puzzleToolStripMenuItem = new ToolStripMenuItem();
+            textToolStripMenuItem = new ToolStripMenuItem();
+            timerToolStripMenuItem = new ToolStripMenuItem();
+            Insert_Menu_Strip.SuspendLayout();
             SuspendLayout();
             // 
             // Close_Button
@@ -91,9 +98,41 @@ namespace Sticky_Notes_Block_App
             Insert_Text_Button.Name = "Insert_Text_Button";
             Insert_Text_Button.Size = new Size(150, 46);
             Insert_Text_Button.TabIndex = 5;
-            Insert_Text_Button.Text = "Insert Text";
+            Insert_Text_Button.Text = "Insert... ▼";
             Insert_Text_Button.UseVisualStyleBackColor = true;
-            Insert_Text_Button.Click += Insert_Text_Button_Click;
+            Insert_Text_Button.Click += Insert_Button_Click;
+            // 
+            // Insert_Menu_Strip
+            // 
+            Insert_Menu_Strip.ImageScalingSize = new Size(32, 32);
+            Insert_Menu_Strip.Items.AddRange(new ToolStripItem[] { imageToolStripMenuItem, puzzleToolStripMenuItem, textToolStripMenuItem, timerToolStripMenuItem });
+            Insert_Menu_Strip.Name = "Insert_Menu_Strip";
+            Insert_Menu_Strip.Size = new Size(301, 200);
+            // 
+            // imageToolStripMenuItem
+            // 
+            imageToolStripMenuItem.Name = "imageToolStripMenuItem";
+            imageToolStripMenuItem.Size = new Size(300, 38);
+            imageToolStripMenuItem.Text = "Image";
+            // 
+            // puzzleToolStripMenuItem
+            // 
+            puzzleToolStripMenuItem.Name = "puzzleToolStripMenuItem";
+            puzzleToolStripMenuItem.Size = new Size(300, 38);
+            puzzleToolStripMenuItem.Text = "Puzzle";
+            // 
+            // textToolStripMenuItem
+            // 
+            textToolStripMenuItem.Name = "textToolStripMenuItem";
+            textToolStripMenuItem.Size = new Size(300, 38);
+            textToolStripMenuItem.Text = "Text";
+            textToolStripMenuItem.Click += Insert_Text_Button_Click;
+            // 
+            // timerToolStripMenuItem
+            // 
+            timerToolStripMenuItem.Name = "timerToolStripMenuItem";
+            timerToolStripMenuItem.Size = new Size(300, 38);
+            timerToolStripMenuItem.Text = "Timer";
             // 
             // Sicky_Notes_Block
             // 
@@ -114,6 +153,7 @@ namespace Sticky_Notes_Block_App
             Text = "Block of Sticky Notes";
             MouseEnter += Form_MouseEnter;
             MouseLeave += Form_MouseLeave;
+            Insert_Menu_Strip.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -124,6 +164,10 @@ namespace Sticky_Notes_Block_App
         private Button History_Button;
         private Button Settings_Button;
         private Button Insert_Text_Button;
-
+        private ContextMenuStrip Insert_Menu_Strip;
+        private ToolStripMenuItem textToolStripMenuItem;
+        private ToolStripMenuItem imageToolStripMenuItem;
+        private ToolStripMenuItem puzzleToolStripMenuItem;
+        private ToolStripMenuItem timerToolStripMenuItem;
     }
 }
