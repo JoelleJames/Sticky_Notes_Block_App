@@ -27,7 +27,12 @@ namespace Sticky_Notes_Block_App.Factories
 
                 // Appearance 
                 BackColor = Sticky_Note.BackColor,
-                BorderStyle = BorderStyle.None
+                BorderStyle = BorderStyle.None,
+                ScrollBars = RichTextBoxScrollBars.None,
+
+                // Behaviour
+                WordWrap = true, // in case designer overrides defaults
+                Multiline = true // in case designer overrides defaults
             }; 
 
 
