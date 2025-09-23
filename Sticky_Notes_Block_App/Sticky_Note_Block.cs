@@ -49,21 +49,41 @@ namespace Sticky_Notes_Block_App
                 ctrl.MouseEnter += Form_MouseEnter;
             }
         }
-        private void Hide_All_Components() //temporary implementation, does not hide close button. Need to edit wording in future
+
+        private IEnumerable<Control> GetAllControls(Control parent)
         {
-            foreach (Control ctrl in Controls)
+            foreach (Control child in parent.Controls)
             {
-                if (ctrl is Button && ctrl.TabIndex > 0)
+                yield return child;
+
+                foreach (var grandchild in GetAllControls(child))
+                    yield return grandchild;
+            }
+        }
+        private void Hide_All_Components() 
+        {
+            foreach (Control ctrl in GetAllControls(this))
+            {
+                if (ctrl is Button && ctrl.TabIndex > 0) // close button TabIndex == 0
+                {
+                    ctrl.Hide();
+                }
+                if (ctrl is ToolStrip)
                 {
                     ctrl.Hide();
                 }
             }
+
         }
         private void Show_All_Components()
         {
-            foreach (Control ctrl in Controls)
+            foreach (Control ctrl in GetAllControls(this))
             {
-                if (ctrl is Button && ctrl.TabIndex > 0)
+                if (ctrl is Button && ctrl.TabIndex > 0) // close button TabIndex == 0
+                {
+                    ctrl.Show();
+                }
+                if (ctrl is ToolStrip)
                 {
                     ctrl.Show();
                 }
@@ -162,22 +182,6 @@ namespace Sticky_Notes_Block_App
             Refresh_Form();
         }
 
-        private void Bold_Button_Click(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-        private void Italics_Button_Click(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-        private void Underline_Button_Click(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-        private void Strikethrough_Button_Click(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         private void Insert_Button_Click(object sender, EventArgs e)
         {
