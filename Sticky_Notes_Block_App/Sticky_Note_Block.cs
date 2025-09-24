@@ -166,20 +166,24 @@ namespace Sticky_Notes_Block_App
         private void Insert_Text_Button_Click(object sender, EventArgs e)
         {
             _dynamicRichTextBox = _textBox_Controls.Create_RichTextBox(this);
-            this.Controls.Add(_dynamicRichTextBox);
 
-            _dynamicTextToolStrip = _textBox_Controls.Create_Text_Formatting_ToolStrip(this);
-
-            var Text_Formatting_Items = _textBox_Controls.Create_Text_Formatting_ToolStrip_Items(
-               _dynamicRichTextBox);
-
-            foreach (var item in Text_Formatting_Items)
+            if (_dynamicRichTextBox != null) // Null if "dynamicRichTextBox" already exists
             {
-                _dynamicTextToolStrip.Items.Add(item);
+                this.Controls.Add(_dynamicRichTextBox);
+
+                _dynamicTextToolStrip = _textBox_Controls.Create_Text_Formatting_ToolStrip(this);
+
+                var Text_Formatting_Items = _textBox_Controls.Create_Text_Formatting_ToolStrip_Items(
+                   _dynamicRichTextBox);
+
+                foreach (var item in Text_Formatting_Items)
+                {
+                    _dynamicTextToolStrip.Items.Add(item);
+                }
+                this.Controls.Add(_dynamicTextToolStrip);
+                textToolStripMenuItem.Visible = false; // hides option to add more text (textbox already exists)
+                Refresh_Form();
             }
-            this.Controls.Add(_dynamicTextToolStrip);
-            textToolStripMenuItem.Visible = false; // hides option to add more text (textbox already exists)
-            Refresh_Form();
         }
 
 

@@ -15,8 +15,16 @@ namespace Sticky_Notes_Block_App.Factories
             _Caption_Bar_Height = Caption_Bar_Height; 
         }
 
-        public RichTextBox Create_RichTextBox(Form Sticky_Note)
+        public RichTextBox? Create_RichTextBox(Form Sticky_Note)
         {
+            foreach (Control ctrl in Sticky_Note.Controls)
+            {
+                // Check if a control named "dynamicRichTextBox" already exists
+                if (Sticky_Note.Controls.ContainsKey("dynamicRichTextBox"))
+                {
+                    return null;
+                }
+            }
             RichTextBox New_RichTextBox = new()
             {
                 Name = "dynamicRichTextBox",
