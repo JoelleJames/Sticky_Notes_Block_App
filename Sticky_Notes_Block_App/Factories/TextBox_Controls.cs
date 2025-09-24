@@ -1,8 +1,11 @@
 ﻿
-using System.Windows.Forms;
+using Sticky_Notes_Block_App.Utilities;
 
 namespace Sticky_Notes_Block_App.Factories
 {
+    /// <summary>
+    /// Class for creating instances of controls and formatting them (for text input to a sticky note)
+    /// </summary>
     public class TextBox_Controls
     {
         private readonly int _Caption_Bar_Height; //caption bar height used for sizing and locations of controls
@@ -12,7 +15,7 @@ namespace Sticky_Notes_Block_App.Factories
             _Caption_Bar_Height = Caption_Bar_Height; 
         }
 
-        public RichTextBox Create_RichTextBox(Control Sticky_Note)
+        public RichTextBox Create_RichTextBox(Form Sticky_Note)
         {
             RichTextBox New_RichTextBox = new()
             {
@@ -33,8 +36,9 @@ namespace Sticky_Notes_Block_App.Factories
                 // Behaviour
                 WordWrap = true, // in case designer overrides defaults
                 Multiline = true // in case designer overrides defaults
-            }; 
+            };
 
+            InputTextUtilities.AttachDynamicMinimumSizeLimiter(Sticky_Note, New_RichTextBox);
 
             return New_RichTextBox;
         }
